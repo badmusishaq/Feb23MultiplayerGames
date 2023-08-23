@@ -24,12 +24,29 @@ public class PlayerMovement : NetworkBehaviour
 
         if(IsServer && IsLocalPlayer)
         {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
+            if(GameManager.instance.state.Value == 1)
+            {
+                horizontal = Input.GetAxis("Horizontal");
+                vertical = Input.GetAxis("Vertical");
+            }
+            else
+            {
+                horizontal = 0;
+                vertical = 0;
+            }
+            
         }
         else if(IsClient && IsLocalPlayer)
         {
-            MovementServerRPC(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            if(GameManager.instance.state.Value == 1)
+            {
+                MovementServerRPC(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            }
+            else
+            {
+                MovementServerRPC(0, 0);
+            }
+            
         }
         
     }

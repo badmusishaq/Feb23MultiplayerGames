@@ -75,6 +75,7 @@ public class GameManager : NetworkBehaviour
     public void StartGame()
     {
         state.Value = 1;
+        ShowScoreUI();
     }
 
     public void SetPlayerName(NetworkObject playerObj, string name)
@@ -94,7 +95,44 @@ public class GameManager : NetworkBehaviour
         if(IsServer)
         {
             playerScores[playerID]++;
+            ShowScoreUI();
             CheckWinner(playerID);
+        }
+    }
+
+    public void ShowScoreUI()
+    {
+        scoreUI.text = "";
+
+        PlayerScores scores = new PlayerScores();
+        scores.scores = new List<ScoreInfo>();
+
+        foreach(var item in playerScores)
+        {
+            ScoreInfo temp = new ScoreInfo();
+            temp.score = item.Value;
+            temp.id = item.Key;
+            temp.name = playerNames[item.Key];
+            scores.scores.Add(temp);
+
+            scoreUI.text = $"[{item.Key}] {playerNames[item.Key]} : {item.Value}/10\n";
+        }
+
+        //Update the client side
+        UpdateClientScoreClientRPC(JsonUtility.ToJson(scores));
+    }
+
+
+    [ClientRpc]
+    public void UpdateClientScoreClientRPC(string scoreInfo)
+    {
+        PlayerScores scores = JsonUtility.FromJson<PlayerScores>(scoreInfo);
+
+        scoreUI.text = "";
+
+        foreach(var item in scores.scores)
+        {
+            scoreUI.text += $"[{item.id}] {item.name} : {item.score}/10\n";
         }
     }
 
@@ -152,6 +190,12 @@ public class GameManager : NetworkBehaviour
     {
         playerObj.transform.position = startPositions[(int)playerID].position;
     }
+}
+
+[System.Serializable]
+public class PlayerScores
+{
+    public List<ScoreInfo> scores;
 }
 
 
