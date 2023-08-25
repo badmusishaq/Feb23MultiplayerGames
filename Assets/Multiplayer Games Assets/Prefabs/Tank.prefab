@@ -117,7 +117,7 @@ MonoBehaviour:
   bulletObject: {fileID: 8356697507982392753, guid: a29c8856c7bca451b93b71a576aea642,
     type: 3}
   shootPoint: {fileID: 6455806168969400821}
-  shootSpeed: 10
+  shootSpeed: 30
 --- !u!114 &-1429350463161705999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6310012531746355822}
+  - component: {fileID: 8954680349160039127}
   m_Layer: 0
   m_Name: PlayerName
   m_TagString: Untagged
@@ -293,6 +294,18 @@ Transform:
   m_Father: {fileID: 6384810401165097538}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8954680349160039127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705473852544140771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6758c10372b8df42b43405fed7da34b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7861113544383192217
 GameObject:
   m_ObjectHideFlags: 0
